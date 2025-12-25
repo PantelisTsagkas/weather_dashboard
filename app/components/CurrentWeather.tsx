@@ -2,15 +2,11 @@
 
 import { useTemperature } from './TemperatureToggle';
 import type { CurrentWeather as CurrentWeatherType } from '@/app/lib/types';
-import Image from 'next/image';
+import WeatherIcon from './WeatherIcon';
 import { useEffect, useState } from 'react';
 
 interface CurrentWeatherProps {
   data: CurrentWeatherType;
-}
-
-function getWeatherIconUrl(iconCode: string): string {
-  return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 }
 
 export default function CurrentWeather({ data }: CurrentWeatherProps) {
@@ -48,14 +44,7 @@ export default function CurrentWeather({ data }: CurrentWeatherProps) {
         </div>
 
         <div className="text-white flex-shrink-0">
-          <Image
-            src={getWeatherIconUrl(data.icon)}
-            alt={data.description}
-            width={120}
-            height={120}
-            className="drop-shadow-lg"
-            unoptimized
-          />
+          <WeatherIcon iconCode={data.icon} size={120} />
         </div>
       </div>
 

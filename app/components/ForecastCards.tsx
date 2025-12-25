@@ -3,14 +3,10 @@
 import { useState } from 'react';
 import { useTemperature } from './TemperatureToggle';
 import type { ForecastDay } from '@/app/lib/types';
-import Image from 'next/image';
+import WeatherIcon from './WeatherIcon';
 
 interface ForecastCardsProps {
   forecast: ForecastDay[];
-}
-
-function getWeatherIconUrl(iconCode: string): string {
-  return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 }
 
 export default function ForecastCards({ forecast }: ForecastCardsProps) {
@@ -38,14 +34,7 @@ export default function ForecastCards({ forecast }: ForecastCardsProps) {
             >
               <p className="text-gray-300 text-sm mb-2">{day.date}</p>
               <div className="flex justify-center mb-3">
-                <Image
-                  src={getWeatherIconUrl(day.icon)}
-                  alt={day.description}
-                  width={64}
-                  height={64}
-                  className="drop-shadow-lg"
-                  unoptimized
-                />
+                <WeatherIcon iconCode={day.icon} size={64} />
               </div>
               <p className="text-gray-400 text-xs capitalize mb-2 truncate">{day.description}</p>
               <div className="flex items-center justify-between">
