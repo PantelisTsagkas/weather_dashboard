@@ -5,21 +5,27 @@ import CurrentWeather from './components/CurrentWeather';
 import ForecastCards from './components/ForecastCards';
 import TemperatureChart from './components/TemperatureChart';
 import TemperatureToggle, { TemperatureProvider } from './components/TemperatureToggle';
+import WeatherError from './components/WeatherError';
 
 interface PageProps {
   searchParams: Promise<{ city?: string }>;
 }
 
 async function WeatherContent({ city }: { city: string }) {
-  const weatherData = await getWeatherData(city);
+  try {
+    const weatherData = await getWeatherData(city);
 
-  return (
-    <>
-      <CurrentWeather data={weatherData.current} />
-      <TemperatureChart forecast={weatherData.forecast} />
-      <ForecastCards forecast={weatherData.forecast} />
-    </>
-  );
+    return (
+      <>
+        <CurrentWeather data={weatherData.current} />
+        <TemperatureChart forecast={weatherData.forecast} />
+        <ForecastCards forecast={weatherData.forecast} />
+      </>
+    );
+  } catch (error) {
+    // Return error UI instead of throwing to show inline error
+    return <WeatherError error={error as Error} />;
+  }
 }
 
 function WeatherContentSkeleton() {

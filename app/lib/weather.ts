@@ -76,8 +76,9 @@ async function fetchForecast(city: string): Promise<ForecastDay[]> {
     
     if (!dailyData.has(dayKey)) {
       dailyData.set(dayKey, {
-        highs: [],
+        
         lows: [],
+        highs: [],
         icons: [],
         descriptions: [],
         dateTime: item.dt * 1000,
@@ -85,8 +86,9 @@ async function fetchForecast(city: string): Promise<ForecastDay[]> {
     }
 
     const dayData = dailyData.get(dayKey)!;
-    dayData.highs.push(item.main.temp_max);
+    
     dayData.lows.push(item.main.temp_min);
+    dayData.highs.push(item.main.temp_max);
     dayData.icons.push(item.weather[0].icon);
     dayData.descriptions.push(item.weather[0].description);
   });
